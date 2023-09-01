@@ -1,0 +1,308 @@
+version: "2.4"
+services:
+
+
+
+#Base de donne authen
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: authen
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+#Base de donne RapportMicroservice
+  postgres4:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: RapportMicroservice
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-data4:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+#Base de donnee laboTest2
+  postgres3:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: LaboTest2
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-data3:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+ 
+#Base de donnee Final
+  postgres2:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: Final
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data2:/var/lib/postgresql/data
+    networks:
+      - backend
+
+
+
+
+#Eureka
+  eurekaserver:
+    build:
+      context: ./PPP---EurekaServer
+    ports:
+      - "8761:8761"
+    image: "eurekaserver"
+    networks:
+      - backend
+
+
+
+
+#APIGateWay
+  apigateway:
+    build:
+      context: ./API---GateWay
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+    ports:
+      - "8098:8098"
+    image: "apigateway"
+    depends_on:
+      - eurekaserver
+    networks:
+      - backend
+
+
+
+
+#Authentification
+  authentification:
+    build:
+      context: ./authentification
+    ports:
+      - "8093:8093"
+    image: "authentification"
+    depends_on:
+      - postgres
+      - eurekaserver
+      - keycloak
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/authen
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - KEYCLOAK_CLIENT_ID=PPP-AuthentificationMicroservice
+      - KEYCLOAK_CLIENT_SECRET=12de8093-49cc-43d9-8ef0-438ec649b47b
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:  
+      - backend
+  
+
+
+
+
+
+
+
+#magasin
+  magasin:
+    build:
+      context: ./PPP-MagasinMicroservice
+    ports:
+      - "8092:8092"
+    image: "magasin"
+    depends_on:
+      - postgres2
+      - eurekaserver
+      - authentification
+      - keycloak
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres2:5432/Final
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - KEYCLOAK_CLIENT_ID=PPP---MagasinMicroservice
+      - KEYCLOAK_CLIENT_SECRET=359685bc-7b99-4f9b-9f80-f9619b7097bf
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:  
+      - backend
+
+
+
+
+
+
+
+
+
+
+#Pharmacy
+  pharmacy:
+    build:
+      context: ./PPP---PharmacieMicroservice
+    ports:
+      - "8094:8094"
+    image: "pharmacy"
+    depends_on:
+      - postgres3
+      - eurekaserver
+      - authentification
+      - keycloak
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres3:5432/LaboTest2
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - KEYCLOAK_CLIENT_ID=PPP---PharmacieMicroservice
+      - KEYCLOAK_CLIENT_SECRET=c73f5bb8-54f1-474a-8e4f-a0e50ca77a1f
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:  
+      - backend
+
+
+
+
+
+
+
+
+
+
+
+#rapport
+  rapport:
+    build:
+      context: ./PPP-Rapport
+    ports:
+      - "8095:8095"
+    image: "rapport"
+    depends_on:
+      - postgres4
+      - eurekaserver
+      - authentification
+      - keycloak
+      - pharmacy
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres4:5432/RapportMicroservice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - KEYCLOAK_CLIENT_ID=PPP-Rapport
+      - KEYCLOAK_CLIENT_SECRET=e6694905-4844-4f23-b592-b03fb8fc3241
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:  
+      - backend
+
+
+
+
+
+
+
+#reservation
+  reservation:
+    build:
+      context: ./PPP-RendezVous
+    ports:
+      - "8097:8097"
+    image: "reservation"
+    depends_on:
+      - postgres4
+      - eurekaserver
+      - authentification
+      - keycloak
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres2:5432/Final
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - KEYCLOAK_CLIENT_ID=PPP-RendezVous
+      - KEYCLOAK_CLIENT_SECRET=d021673c-f70c-4475-8d69-88b919b8bd87
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:  
+      - backend
+
+
+
+
+
+
+
+
+#Reclamation
+  claims:
+    build:
+      context: ./PPP-ReclamationMicroservice
+    ports:
+      - "8091:8091"
+    image: "claims"
+    depends_on:
+      - postgres2
+      - eurekaserver
+      - authentification
+    environment:
+      - "eureka.client.serviceUrl.defaultZone=http://eurekaserver:8761/eureka/"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://postgres2:5432/Final"
+      - "SPRING_DATASOURCE_USERNAME=postgres"
+      - "SPRING_DATASOURCE_PASSWORD=root"
+      - KEYCLOAK_CLIENT_ID=PPP---ReclamationMicroservice
+      - KEYCLOAK_CLIENT_SECRET=d6ab1f0a-682e-4712-93e2-06e52a8980e2
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8180/auth 
+    networks:
+      - backend
+
+
+
+
+
+
+
+
+
+#keycloak
+  keycloak:
+    image: keycloak
+    ports:
+      - "8180:8180"
+    volumes:
+     - keycloak-data:/opt/jboss/keycloak/standalone/data
+    environment:
+      - DB_VENDOR=H2
+      - KC_HTTP_PORT= 8180
+    networks:
+      - backend
+    
+
+volumes:
+  postgres-data:
+  postgres-data2:
+  postgres-data3:
+  postgres-data4:
+  keycloak-data:
+networks:
+ backend:
+   driver: bridge
+

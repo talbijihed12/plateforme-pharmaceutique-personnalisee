@@ -1,21 +1,21 @@
-#Plateforme Pharmaceutique
+# Plateforme Pharmaceutique
 
 Ce projet est une plateforme pharmaceutique basée sur Spring Boot, Java 8 et Keycloak (12.0.4 recommandé). Il utilise Docker pour faciliter le déploiement. Assurez-vous d'avoir Docker Desktop installé sur votre système.
 
-##Configuration Préalable
+## Configuration Préalable
 Avant de commencer à utiliser cette plateforme, il est essentiel de configurer correctement votre environnement. Suivez ces étapes :
 
-####Ajoutez une entrée dans votre fichier hosts :
+#### Ajoutez une entrée dans votre fichier hosts :
 Pour permettre à votre système de résoudre le nom "keycloak" en utilisant l'adresse IP locale, ajoutez cette ligne à votre fichier hosts :
 
 Copy code
 keycloak 127.0.0.1
 Cela garantira que votre application puisse se connecter à Keycloak sans problème.
 
-##Installation et Exécution
+## Installation et Exécution
 Pour exécuter cette plateforme, vous devrez construire des images Docker pour chaque microservice, y compris Keycloak. Voici comment procéder :
 
-Construisez les images Docker :
+#### Construisez les images Docker :
 Dans chaque répertoire de microservice, exécutez la commande suivante pour construire les images Docker nécessaires. Assurez-vous de remplacer "nom_image" par un nom approprié pour chaque microservice :
 
 
@@ -23,7 +23,7 @@ Copy code
 docker build -t nom_image .
 Cela créera des images Docker prêtes à être utilisées.
 
-##Démarrez l'ensemble de l'application :
+## Démarrez l'ensemble de l'application :
 Utilisez Docker Compose pour lancer tous les microservices en même temps :
 
 
@@ -32,7 +32,7 @@ docker-compose up
 Cela orchestrera le déploiement de l'ensemble de la plateforme.
 
 
-##Configuration de Keycloak
+## Configuration de Keycloak
 La configuration de Keycloak est cruciale pour gérer l'authentification et l'autorisation de votre plateforme. Suivez ces étapes pour configurer Keycloak correctement :
 
 Accédez à l'interface d'administration de Keycloak en utilisant l'URL suivante : http://localhost:port/auth/.
@@ -52,7 +52,7 @@ Créez chaque microservice en tant que client dans le realm "plateforme-pharmace
 
 Créez un utilisateur administrateur et attribuez-lui le rôle d'administrateur de realm.
 
-##Configuration des Microservices
+## Configuration des Microservices
 Pour que chaque microservice fonctionne correctement avec Keycloak, vous devrez ajuster sa configuration. Voici les éléments clés à configurer dans chaque microservice :
 
 Nom du Realm: Configurez le nom du realm en tant que "plateforme-pharmaceutique" pour chaque microservice.

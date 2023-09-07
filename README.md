@@ -62,3 +62,43 @@ Nom du Client: Chaque microservice doit être configuré en tant que client dans
 URL de Redirection OAuth2: Assurez-vous que les URL de redirection OAuth2 sont correctement configurées pour chaque microservice, conformément à la configuration recommandée.
 
 Ce fichier README fournit des instructions détaillées pour configurer et exécuter la plateforme pharmaceutique. Assurez-vous de consulter chaque microservice pour des détails spécifiques sur la configuration.
+
+
+
+
+# Comment Exécuter Keycloak Localement
+## Prérequis
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre système :
+Java 8 : Keycloak requiert Java 8 pour fonctionner correctement. Vous pouvez télécharger Java 8 depuis le site officiel d'Oracle ou utiliser une distribution OpenJDK.
+Keycloak 12.0.4 : Téléchargez la version 12.0.4 de Keycloak à partir du lien suivant : https://github.com/keycloak/keycloak/releases/tag/12.0.4
+
+## Étapes pour Exécuter Keycloak Localement
+Suivez ces étapes pour exécuter Keycloak sur votre machine locale :
+
+#### Installation de Java :
+Téléchargez et installez Java 8 en suivant les instructions spécifiques à votre système d'exploitation.
+
+#### Extraction de Keycloak :
+Après avoir téléchargé Keycloak 12.0.4, extrayez le fichier ZIP dans un répertoire de votre choix sur votre système.
+
+#### Démarrage de Keycloak :
+Ouvrez une fenêtre de terminal ou une invite de commande.
+Accédez au répertoire où vous avez extrait Keycloak (keycloak-12.0.4\bin).
+Exécutez la commande suivante pour démarrer Keycloak :
+standalone.bat -Djboss.http.port=8180   (pour Windows)
+standalone.sh -Djboss.http.port=8180      (pour Linux/Unix)
+Keycloak devrait commencer à démarrer et affichera les journaux sur la console.
+
+#### Accès à l'interface d'administration :
+Ouvrez un navigateur web.
+Accédez à l'URL suivante : http://localhost:8180/auth.
+Connectez-vous avec les identifiants par défaut (utilisateur : admin, mot de passe : admin).
+Configuration et Utilisation :
+Une fois connecté à l'interface d'administration, vous pouvez configurer Keycloak selon vos besoins, ajouter des clients, des utilisateurs, etc.
+Arrêt de Keycloak :
+Pour arrêter Keycloak, retournez à la fenêtre de terminal où Keycloak est en cours d'exécution et appuyez sur Ctrl + C.
+
+## Conclusion :
+Vous avez maintenant réussi à exécuter Keycloak localement sur votre machine. Assurez-vous de consulter la documentation officielle de Keycloak pour plus d'informations sur la configuration et l'utilisation avancée.
+https://www.keycloak.org/docs/latest/release_notes/index.html
+https://www.keycloak.org/documentation

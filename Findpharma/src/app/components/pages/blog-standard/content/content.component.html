@@ -1,0 +1,130 @@
+<div class="container">
+    <div>
+      Welcome <b>{{name}}</b>.<br /> You have posted <b>{{postLength}}</b> time(s) and commented
+      <b>{{commentLength}}</b> time(s).
+      You can check your post and comment history below.
+    </div>
+    <hr />
+    <div>
+      Your Posts:
+    </div>
+    
+    <div class="sidebar-style-8">
+      <div class="section section-padding">
+          <div class="container">
+              <div class="row">
+                  <!-- Data -->
+                  <div class="col-lg-4 col-md-6" *ngFor="let post of posts ">
+                      <article class="sigma_post style-15">
+                          <article class=" sigma_post-item">
+                          <div class="sigma_post-thumb">
+                              <a routerLink="/blog-details/{{post.id}}">
+                                  <p class="post-text" [innerHtml]="post.description"></p>
+                              </a>
+                          </div>
+                       </article>
+  
+                          <div class="sigma_post-body">
+                              <div class="sigma_post-content">
+                                  <div class="sigma_post-meta is-absolute">
+                                      <a routerLink="/blog-details/{{post.id}}" class="sigma_post-date">
+                                          {{post.createdDate}}
+                                      </a>
+                                  </div>
+                                  <div class="sigma_post-meta">
+                                      <ul>
+                                          <li>
+                                              <a routerLink="/blog/author/{{post.createdBy}}">
+                                                  <i class="fal fa-user"></i>
+                                                  By {{post.createdBy}}
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a routerLink="/blog/cat/{{post.topic}}">
+                                                  <i class="fal fa-folder-open"></i>
+                                                  {{post.topic}}
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a><i class="fal fa-calendar"></i>
+                                                  {{post.duration}}
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <h5>
+                                      <a routerLink="/blog-details/{{post.id}}">{{post.hashTag}}</a>
+                                  </h5>
+                              </div>
+                              <a routerLink="/blog-details/{{post.id}}" class="btn-link">
+                                  Read more
+                              </a>
+                          </div>
+                          <hr>
+                          <a href="javascript:void(0)" (click)="DeletePost(post.id)" placement="top" ngbTooltip="Delete">
+                            <i class="far fa-trash-alt red-delete-icon"></i>
+                          </a>
+                          <a href="javascript:void(0)" (click)="DeletePost(post.id)" placement="top" ngbTooltip="edit">
+                            <i class="far fa-edit"></i>
+                          </a>
+                          <!-- Display Comments -->
+                         
+                          <!-- Comment Form -->
+                      </article>
+                  </div>
+                  <!-- Data -->
+                  
+              </div>
+          </div>
+      </div>
+    
+    <hr />
+    <div>
+      Your Comments:
+    </div>
+        <div class="comments-list">
+          <ul>
+            <li class="comment-item" *ngFor="let comment of comments">
+              <div class="comment-body">
+                <span class="date">{{comment.duration}}</span>
+                <p>{{comment.text}}</p>
+                <p><i class="fal fa-calendar"></i>{{comment.createdDate}}</p>
+              </div>
+              <button class="delete-button" (click)="onDelete(comment.idComment)">
+                <i class="fal fa-trash"></i>
+              </button>
+              <button class="update-button" (click)="openEditCommentModal(comment.idComment,text)" placement="top" ngbTooltip="Edit Comment">
+                <i class="fas fa-user-cog"></i>
+              </button>
+            </li>
+          </ul>
+          
+        </div>
+        
+    
+  </div>
+  <ng-template #commentModal let-modal>
+    <div class="modal-body sigma_modal-sec">
+        <div class="sigma_close" (click)="modal.dismiss('Cross click')">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="form-group">
+                    
+                    <form (ngSubmit)="updateComment(idComment,text)">
+                        <div class="form-group">
+                            <label for="comment">Your Thoughts!</label>
+                            <input type="text" class="form-control" id="comment" [(ngModel)]="text" name="comment">
+                           
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Comment</button>
+                    </form>
+                    
+                    <!-- Additional user information or metadata here -->
+                    <!-- ... -->
+                    <!-- Social sharing options if needed -->
+                    <!-- ... -->
+                </div>
+    </div>
+</ng-template>
+

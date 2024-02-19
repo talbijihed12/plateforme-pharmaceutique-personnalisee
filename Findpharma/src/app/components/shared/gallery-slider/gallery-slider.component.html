@@ -1,0 +1,9 @@
+<div class="sigma_instagram style-1 insta-images">
+    <ngx-slick-carousel [config]="settings" class="sigma_instagram-slider">
+        <!-- Data -->
+        <a routerLink="/doctor-grid" ngxSlickItem *ngFor="let item of instagram">
+            <img [src]="item.image" alt="img">
+        </a>
+        <!-- Data -->
+    </ngx-slick-carousel>
+</div>

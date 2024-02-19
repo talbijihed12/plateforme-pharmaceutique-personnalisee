@@ -1,0 +1,15 @@
+<div class="sigma_counter-wrapper margin-negative bg-primary-1 style-5" [style.background-image]="'url(assets/img/pattern-2.png)'">
+    <div class="row">
+        <!-- Data -->
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of counter">
+            <div class="sigma_counter style-5">
+                <span>
+                    <b class="counter" [countUp]="item.value">0</b>
+                    <span class="plus">+</span>
+                </span>
+                <p class="text-white">{{item.title}}</p>
+            </div>
+        </div>
+        <!-- Data -->
+    </div>
+</div>

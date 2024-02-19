@@ -1,0 +1,96 @@
+<div class="sidebar">
+    <!-- Category Widget -->
+    <div class="widget widget-categories">
+        <h5 class="widget-title">Categories</h5>
+        <ul>
+            <!-- Data -->
+            <li *ngFor="let item of category">
+                <a routerLink="/service/cat/{{item.id}}">
+                    {{item.title}}<span>{{item.count}}</span>
+                </a>
+            </li>
+            <!-- Data -->
+        </ul>
+    </div>
+    <!-- Recent services Widget -->
+    <div class="widget widget-sigma-recent-posts">
+        <h5 class="widget-title">Recent posts</h5>
+        <!-- Data -->
+        <div class="sigma_recent-post" *ngFor="let item of getRecentService()">
+            <a routerLink="/service-details/{{item.id}}" class="recent-post-image">
+                <img [src]="item.image" [alt]="item.title">
+            </a>
+            <div class="recent-post-descr">
+                <h6>
+                    <a routerLink="/service-details/{{item.id}}">{{item.title}}</a>
+                </h6>
+                <a routerLink="/service-details/{{item.id}}" class="date">
+                    <i class="far fa-clock mr-2"></i>
+                    {{item.servicedate}}
+                </a>
+            </div>
+        </div>
+        <!-- Data -->
+    </div>
+    <!-- Follow Widget -->
+    <div class="widget widget-follow">
+        <h5 class="widget-title">Follow Us</h5>
+        <div class="social-buttons">
+            <a href="#" class="btn-block sigma_btn">
+                <div class="follow-icon d-flex align-items-center">
+                    <i class="fab fa-instagram"></i>
+                    <p class="mb-0">
+                        Instagram
+                        <span>225.5k Followers</span>
+                    </p>
+                </div>
+                <i class="fal fa-chevron-right"></i>
+            </a>
+            <a href="#" class="btn-block sigma_btn">
+                <div class="follow-icon d-flex align-items-center">
+                    <i class="fab fa-twitter"></i>
+                    <p class="mb-0">
+                        Twitter
+                        <span>225.5k Followers</span>
+                    </p>
+                </div>
+                <i class="fal fa-chevron-right"></i>
+            </a>
+            <a href="#" class="btn-block sigma_btn">
+                <div class="follow-icon d-flex align-items-center">
+                    <i class="fab fa-facebook-f"></i>
+                    <p class="mb-0">
+                        Facebook
+                        <span>225.5k Followers</span>
+                    </p>
+                </div>
+                <i class="fal fa-chevron-right"></i>
+            </a>
+            <a href="#" class="btn-block sigma_btn">
+                <div class="follow-icon d-flex align-items-center">
+                    <i class="fab fa-youtube"></i>
+                    <p class="mb-0">
+                        Youtube
+                        <span>225.5k Followers</span>
+                    </p>
+                </div>
+                <i class="fal fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="widget widget-blockquote p-0 border-0">
+        <blockquote class="blockquote">
+            <cite>Request a Quote</cite>
+            <p>Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
+            <a routerLink="/contact" class="sigma_btn btn-sm">Request Quote</a>
+        </blockquote>
+    </div>
+    <!-- Subscribe Widget -->
+    <div class="widget widget-newsletter">
+        <h5 class="widget-title">Join Newsletter</h5>
+        <form>
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="button" class="btn-block mt-4">Subscribe</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div class="section section-padding pt-0">
+    <div class="container">
+        <div class="section-title centered">
+            <span class="subtitle">Trending</span>
+            <h3 class="title mb-0">The Counter Medicine</h3>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="sigma_tab-item style-2 with-dots">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="activeItem === 1 ? 'active' : ''" (click)="reset(1)">
+                                <span class="pulsive-dot"></span>
+                                All
+                            </a>
+                        </li>
+                        <!-- Data -->
+                        <li class="nav-item" *ngFor="let item of category; let i = index">
+                            <a class="nav-link" [ngClass]="activeItem === 2+i ? 'active' : ''"
+                                (click)="filterItemsByCategory(item, 2+i)">
+                                <span class="pulsive-dot"></span>
+                                {{item.title}}
+                            </a>
+                        </li>
+                        <!-- Data -->
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content col-12" id="myTabContent">
+                <div class="row">
+                    <!-- Data -->
+                    <div class="col-lg-3 col-md-6" *ngFor="let item of filteredItems">
+                        <div class="sigma_product style-8">
+                            <div class="sigma_product-thumb">
+                                <a routerLink="/product-single/{{item.id}}"><img [src]="item.image[0]"
+                                        [alt]="item.title"></a>
+                                <div class="sigma_product-controls">
+                                    <!-- Wishlist -->
+                                    <a href="javascript:void(0)" (click)="handleAddToWishlist(item)"
+                                        [ngClass]="isProductInWishlist(item.id) ? 'd-none' : ''" placement="top"
+                                        ngbTooltip="Add To Wishlist"> <i class="far fa-heart"></i> </a>
+                                    <a href="javascript:void(0)" class="active" (click)="handleDeleteFromWishlist(item)"
+                                        [ngClass]="isProductInWishlist(item.id) ? '' : 'd-none'" placement="top"
+                                        ngbTooltip="Remove To Wishlist"> <i class="far fa-heart"></i> </a>
+                                    <!-- Cart -->
+                                    <a href="javascript:void(0)" (click)="handleAddToCart(item)" *ngIf="item.stock"
+                                        placement="top" ngbTooltip="Add To Cart"> <i class="far fa-shopping-basket"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" *ngIf="!item.stock" (click)="handleOutofStock()"
+                                        placement="top" ngbTooltip="Add To Cart"> <i class="far fa-shopping-basket"></i>
+                                    </a>
+                                    <!-- Quick view -->
+                                    <a href="javascript:void(0)" placement="top" ngbTooltip="Quick View"> <i
+                                            class="far fa-eye" (click)="open(shopmodal, item)"></i> </a>
+                                </div>
+                            </div>
+                            <div class="sigma_product-body">
+                                <h5 class="sigma_product-title"> <a
+                                        routerLink="/product-single/{{item.id}}">{{item.title}}</a> </h5>
+                                <div class="sigma_rating">
+                                    <ngb-rating [max]="5" [(rate)]="item.rating" [readonly]="true">
+                                        <ng-template let-fill="fill" let-index="index">
+                                            <i class="fal fa-star" [class.fas]="fill === 100"></i>
+                                        </ng-template>
+                                    </ngb-rating>
+                                </div>
+                                <div class="sigma_product-price">
+                                    <span>{{item.price * (100 - item.discount) / 100 | number:'1.2-2'}}$</span>
+                                    <span *ngIf="item.discount">{{item.price | number:'1.2-2'}}$</span>
+                                </div>
+                                <!-- Cart -->
+                                <a href="javascript:void(0)" (click)="handleAddToCart(item)" *ngIf="item.stock"
+                                    class="sigma_btn btn-sm">Add to Cart
+                                </a>
+                                <a href="javascript:void(0)" *ngIf="!item.stock" (click)="handleOutofStock()"
+                                    class="sigma_btn btn-sm"> Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Data -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Modal -->
+<ng-template #shopmodal let-modal>
+    <div class="modal-body sigma_modal-sec">
+        <div class="sigma_close" (click)="modal.dismiss('Cross click')">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="row sigma_product-single">
+            <div class="col-md-6">
+                <div class="sigma_product-single-thumb">
+                    <img [src]="modalContent.image[0]" [alt]="modalContent.title" class="w-100">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="sigma_product-single-content">
+                    <div class="sigma_product-price">
+                        <span>{{modalContent.price * (100 - modalContent.discount) / 100 | number:'1.2-2'}}$</span>
+                        <span *ngIf="modalContent.discount">{{modalContent.price | number:'1.2-2'}}$</span>
+                    </div>
+                    <div class="sigma_rating-wrapper">
+                        <div class="sigma_rating">
+                            <ngb-rating [max]="5" [(rate)]="modalContent.rating" [readonly]="true">
+                                <ng-template let-fill="fill" let-index="index">
+                                    <i class="fal fa-star" [class.fas]="fill === 100"></i>
+                                </ng-template>
+                            </ngb-rating>
+                        </div>
+                        <span>{{modalContent.reviews.length}} Reviews</span>
+                    </div>
+                    <hr>
+                    <p class="sigma_product-excerpt">
+                        {{modalContent.shorttext}}
+                    </p>
+                    <div class="sigma_product-meta">
+                        <p><strong>Product SKU: <span>#{{modalContent.sku}}</span></strong></p>
+                        <p><strong>Availablity:
+                                <span *ngIf="modalContent.stock">In Stock</span>
+                                <span *ngIf="!modalContent.stock">Out of Stock</span>
+                            </strong></p>
+                        <p><strong>Tags: </strong>
+                            <a routerLink="/shop/tag/{{tag.id}}"
+                                *ngFor="let tag of getTags(modalContent.tags)">{{tag.title}} ,</a>
+                        </p>
+                    </div>
+                    <hr>
+                    <form class="sigma_product-atc-form">
+                        <div class="sigma_product-buttons d-block">
+                            <!-- Cart -->
+                            <button type="button" *ngIf="modalContent.stock"
+                                (click)="handlePopupAddToCart(modalContent)" class="ml-0 btn-block sigma_btn">Add To
+                                Cart <i class="far fa-shopping-basket"></i></button>
+                            <button type="button" *ngIf="!modalContent.stock" (click)="handleOutofStock()" disabled
+                                class="ml-0 btn-block sigma_btn">Add To Cart <i
+                                    class="far fa-shopping-basket"></i></button>
+                            <!-- Wishlist -->
+                            <a href="javascript:void(0)" class="ml-0 btn-block sigma_btn light"
+                                (click)="handleAddToWishlist(modalContent)"
+                                [ngClass]="isProductInWishlist(modalContent.id) ? 'd-none' : ''">Add To Wishlist <i class="far fa-heart"></i> </a>
+                            <a href="javascript:void(0)" class="ml-0 btn-block sigma_btn light active"
+                                (click)="handleDeleteFromWishlist(modalContent)"
+                                [ngClass]="isProductInWishlist(modalContent.id) ? '' : 'd-none'">Remove To Wishlist <i class="far fa-heart"></i> </a>
+                            <a href="#" class="ml-0 btn-block sigma_btn light">Compare <i class="far fa-compress"></i>
+                            </a>
+                        </div>
+                    </form>
+                    <!-- Post Meta Start -->
+                    <div class="sigma_post-single-meta">
+                        <div class="sigma_post-single-meta-item sigma_post-share">
+                            <h5>Share</h5>
+                            <ul class="sigma_sm">
+                                <!-- Data -->
+                                <li *ngFor="let social of socialShare(modalContent.title)">
+                                    <a href="javascript:void(0)" (click)="openSocialPopup(social)">
+                                        <i [class]="social.iconClass"></i>
+                                    </a>
+                                </li>
+                                <!-- Data -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Post Meta End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,153 @@
+<!-- Mobile Menu -->
+<aside class="sigma_aside" [ngClass]="navMethod ? 'aside-open':''">
+    <div class="sigma_close aside-trigger" (click)="toggleNav()">
+        <span></span>
+        <span></span>
+    </div>
+    <app-mobile-menu></app-mobile-menu>
+</aside>
+<div class="sigma_aside-overlay aside-trigger" (click)="toggleNav()"></div>
+<!-- Mobile Menu -->
+<!-- Header -->
+<header class="sigma_header header-absolute style-5 other can-sticky">
+    <div class="sigma_header-top dark-bg d-none d-md-block">
+        <div class="container-fluid">
+            <div class="sigma_header-top-inner">
+                <div class="sigma_header-top-links">
+                    <ul class="sigma_header-top-nav">
+                        <li>
+                            <a href="#">
+                                <i class="fal fa-envelope"></i>
+                                ppp@example.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fal fa-map-marker-alt"></i>
+                                Oakwood, Los Angeles, CA 1098
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <ul class="custom-flex">
+                    <li *ngIf="isLoggedIn" class="nav-item d-none d-md-block" ngbDropdown placement="bottom-end">
+                      <a
+                        ngbDropdownToggle
+                        class="nav-link waves-effect waves-dark "
+                        href="javascript:void(0)"
+                      >
+                      <img
+                         src="assets/img/icons8-test-account-30.png"
+
+                         class="rounded-circle"
+                         width="31"
+                        />
+
+                        <span >{{username}}</span>
+                      </a>
+                      <div class="dropdown-menu-right" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript:void(0)"> My Profile</a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"  routerLink="/update"> Account Setting</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" *ngIf="isAdmin" routerLink="/liste">Liste of Users</a>
+                        <a class="dropdown-item" (click)="onDelete()"> Delete My Account</a>
+                        <a class="dropdown-item" (click)="logout()"> Logout</a>
+
+                      </div>
+                    </li>
+                </ul>
+                
+                
+                    
+                    <button *ngIf="!isLoggedIn" (click)="login()"  class="text-custom-white">Login</button>
+                                
+                    <button  *ngIf="!isLoggedIn" routerLink="/sign-up" class="text-custom-white">Signup</button>
+                
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sigma_header-middle">
+        <div class="container-fluid">
+            <div class="navbar">
+                <div class="sigma_logo-wrapper">
+                    <a routerLink="/" class="sigma_logo">
+                        <img src="assets/img/logo-light.png" alt="logo">
+                    </a>
+                </div>
+                <ul class="navbar-nav">
+                    <!-- Data -->
+                    <li [ngClass]="item.child ? 'menu-item menu-item-has-children':'menu-item'"
+                        *ngFor="let item of navigation">
+                        <a href="javascript:void(0)" *ngIf="item.child">{{item.linkText}}</a>
+                        <a routerLink="{{item.link}}" *ngIf="!item.child">{{item.linkText}}</a>
+                        <ul class="sub-menu" *ngIf="item.child">
+                            <li [ngClass]="item.child ? 'menu-item menu-item-has-children':'menu-item'"
+                                *ngFor="let item of item.submenu">
+                                <a href="javascript:void(0)" *ngIf="item.child">{{item.linkText}}</a>
+                                <a routerLink="{{item.link}}" *ngIf="!item.child">{{item.linkText}}</a>
+                                <ul class="sub-menu" *ngIf="item.child">
+                                    <li [ngClass]="item.child ? 'menu-item menu-item-has-children':'menu-item'"
+                                        *ngFor="let item of item.submenu">
+                                        <a routerLink="{{item.link}}">{{item.linkText}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Data -->
+                </ul>
+                <div class="sigma_header-controls style-2">
+                    <ul class="sigma_header-controls-inner">
+                        <li class="search-trigger header-controls-item d-none d-sm-block">
+                            <a href="javascript:void(0)" class="sigma_header-control-search bg-transparent border-0"
+                                title="Search" (click)="toggleSearch()">
+                                <i class="far fa-search"></i>
+                            </a>
+                        </li>
+                        <li class="cart-trigger header-controls-item d-none d-sm-block ml-0">
+                            <a routerLink="/cart" class="sigma_header-control-cart bg-transparent border-0"
+                                title="Your Cart">
+                                <i class="far fa-shopping-basket"></i>
+                            </a>
+                            <ul class="sigma_cart-dropdown">
+                                <app-small-cart></app-small-cart>
+                            </ul>
+                        </li>
+                        <li class="d-none d-sm-block">
+                            <a routerLink="/shop-grid" class="sigma_btn btn-sm">
+                                Order Here
+                                <i class="fal fa-arrow-right"></i>
+                            </a>
+                        </li>
+                        <li class="aside-toggle aside-trigger" (click)="toggleNav()">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header -->
+<!-- Search Bar -->
+<div class="search-form-wrapper" [ngClass]="searchMethod ? 'open':''">
+    <div class="search-trigger sigma_close" (click)="toggleSearch()">
+        <span></span>
+        <span></span>
+    </div>
+    <form class="search-form">
+        <input type="text" placeholder="Search..." required>
+        <button type="submit" class="search-btn">
+            <i class="fal fa-search m-0"></i>
+        </button>
+    </form>
+</div>
+<!-- Search Bar -->

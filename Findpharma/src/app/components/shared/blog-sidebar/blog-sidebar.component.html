@@ -1,0 +1,87 @@
+<div class="sidebar">
+    <!-- Search Widget -->
+    <div class="widget widget-search">
+        <form (ngSubmit)="onSubmit()" method="GET">
+            <div class="input-group">
+                <input type="text" placeholder="Search" name="searchText" [(ngModel)]="searchText" required>
+                <div class="input-group-append">
+                    <button type="submit">
+                        <i class="fal fa-search mr-0"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Category Widget -->
+    <div class="widget widget-categories">
+        <h5 class="widget-title">Categories</h5>
+        <ul>
+            <!-- Data -->
+            <li *ngFor="let item of category">
+                <a routerLink="/blog/cat/{{item.id}}">
+                    {{item.title}}<span>{{item.count}}</span>
+                </a>
+            </li>
+            <!-- Data -->
+        </ul>
+    </div>
+    <!-- Recent Posts Widget -->
+    <div class="widget widget-sigma-recent-posts">
+        <h5 class="widget-title">Recent Post</h5>
+        <!-- Data -->
+        <div class="sigma_recent-post" *ngFor="let item of getRecentPost()">
+            <a routerLink="/blog-details/{{item.id}}" class="recent-post-image">
+                <img [src]="item.image[0]" [alt]="item.title">
+                <span>{{item.reviews.length}}</span>
+            </a>
+            <div class="recent-post-descr">
+                <h6>
+                    <a routerLink="/blog-details/{{item.id}}">{{item.title}}</a>
+                </h6>
+                <a routerLink="/blog-details/{{item.id}}" class="date">
+                    <i class="far fa-clock mr-2"></i>
+                    {{item.postdate}}
+                </a>
+            </div>
+        </div>
+        <!-- Data -->
+    </div>
+    <!-- Subscribe Widget -->
+    <div class="widget widget-newsletter">
+        <h5 class="widget-title">Join Newsletter</h5>
+        <form>
+            <input type="email" name="email" placeholder="Enter your email">
+            <button type="button" class="btn-block mt-4">Subscribe</button>
+        </form>
+    </div>
+    <!-- Recent Posts Widget -->
+    <div class="widget widget-sigma-recent-posts style-3">
+        <h5 class="widget-title">Recent Post</h5>
+        <!-- Data -->
+        <div class="sigma_recent-post" *ngFor="let item of getRecentPost()">
+            <div class="sigma_post-categories">
+                <a routerLink="/blog/cat/{{cat.id}}" *ngFor="let cat of getCategories(item.category) | slice:0:2">{{cat.title}}</a>
+            </div>
+            <div class="recent-post-descr">
+                <h6>
+                    <a routerLink="/blog-details/{{item.id}}">{{item.title}}</a>
+                </h6>
+                <div class="author-info d-flex align-items-center" *ngFor="let author of getAuthor(item.author)">
+                    <span>{{getNameInitials(author.name)}}</span>
+                    <div>
+                        <a routerLink="/blog/author/{{author.id}}" class="author-name">{{author.name}}</a>
+                        <a routerLink="/blog-details/{{item.id}}" class="date">{{item.postdate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Data -->
+    </div>
+    <!-- Tags Widget -->
+    <div class="widget tagcloud">
+        <h5 class="widget-title">Popular Tags</h5>
+        <!-- Data -->
+        <a routerLink="/blog/tag/{{item.id}}" *ngFor="let item of tags">{{item.title}}</a>
+        <!-- Data -->
+    </div>
+</div>

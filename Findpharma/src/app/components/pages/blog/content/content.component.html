@@ -1,0 +1,73 @@
+
+<div class="float-right">
+    <div class="sigma_footer-widget">
+        <form>
+            <button type="button" routerLink="/createPost" class="mt-3 btn-block">Add Post</button>
+        </form>
+    </div>
+</div>
+<div class="sidebar-style-8">
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Data -->
+                <div class="col-lg-4 col-md-6" *ngFor="let post of posts | paginate: { itemsPerPage: 6, currentPage: page }">
+                    <article class="sigma_post style-15">
+                        <article class=" sigma_post-item">
+                        <div class="sigma_post-thumb">
+                            <a routerLink="/blog-details/{{post.id}}">
+                                <p class="post-text" [innerHtml]="post.description"></p>
+                            </a>
+                        </div>
+                     </article>
+
+                        <div class="sigma_post-body">
+                            <div class="sigma_post-content">
+                                <div class="sigma_post-meta is-absolute">
+                                    <a routerLink="/blog-details/{{post.id}}" class="sigma_post-date">
+                                        {{post.createdDate}}
+                                    </a>
+                                </div>
+                                <div class="sigma_post-meta">
+                                    <ul>
+                                        <li>
+                                            <a routerLink="/blog/author/{{post.createdBy}}">
+                                                <i class="fal fa-user"></i>
+                                                By {{post.createdBy}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a routerLink="/blog/cat/{{post.topic}}">
+                                                <i class="fal fa-folder-open"></i>
+                                                {{post.topic}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a><i class="fal fa-calendar"></i>
+                                                {{post.duration}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h5>
+                                    <a routerLink="/blog-details/{{post.id}}">{{post.hashTag}}</a>
+                                </h5>
+                            </div>
+                            <a routerLink="/blog-details/{{post.id}}" class="btn-link">
+                                Read more
+                            </a>
+                        </div>
+                        <!-- Display Comments -->
+                       
+                        <!-- Comment Form -->
+                    </article>
+                </div>
+                <!-- Data -->
+            </div>
+            <!-- Pagination -->
+            <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+            </pagination-controls>
+            <!-- Pagination -->
+        </div>
+    </div>
+</div>

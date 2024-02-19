@@ -1,0 +1,36 @@
+<div class="sidebar mb-5">
+    <!-- Category Widget -->
+    <div class="widget widget-categories">
+        <h5 class="widget-title">Specialty</h5>
+        <ul>
+            <!-- Data -->
+            <li *ngFor="let item of category">
+                <a routerLink="/doctor/cat/{{item.id}}">
+                    {{item.title}}
+                </a>
+            </li>
+            <!-- Data -->
+        </ul>
+    </div> 
+    <div class="widget">
+        <h5 class="widget-title">Apppointment availability</h5>
+        <input type="checkbox" name="free" id="availabilityDoctors">
+        <label for="availabilityDoctors">Free doctors only</label>
+        <input type="checkbox" name="unavailable" id="unavailableDoctors">
+        <label class="mb-0" for="unavailableDoctors">Unavailable doctors only</label>
+    </div>
+    <div class="widget">
+        <h5 class="widget-title">Gender</h5>
+        <input type="radio" name="gendorDoctor" value="nopreference" id="genderDoctor">
+        <label for="genderDoctor">No Preference</label>
+        <input type="radio" name="gendorDoctor" value="female" id="genderDoctor1">
+        <label for="genderDoctor1">Female</label>
+        <input type="radio" name="gendorDoctor" value="male" id="genderDoctor2">
+        <label class="mb-0" for="genderDoctor2">Male</label>
+    </div>
+    <div class="widget">
+        <h5 class="widget-title">Years of Experience</h5>
+        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options">
+        </ngx-slider>
+    </div>
+</div>

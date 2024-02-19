@@ -1,0 +1,27 @@
+<div class="section section-padding">
+    <div class="container">
+        <div class="section-title centered">
+            <span class="subtitle">Client Testimonials</span>
+            <h3 class="title">What Our Clients Say</h3>
+        </div>
+        <div class="row">
+            <!-- Data -->
+            <div class="col-lg-4 col-md-6" *ngFor="let item of testimonials | slice:0:3">
+                <div class="sigma_testimonial bg-gray style-13" *ngFor="let author of getAuthor(item.author)">
+                    <div class="sigma_testimonial-thumb">
+                        <img [src]="author.image" [alt]="author.name">
+                        <span class="fas fa-quote-left sigma_testimonial-icon"></span>
+                    </div>
+                    <div class="sigma_testimonial-body">
+                        <p>"{{item.comment | slice:0:124}}"</p>
+                        <div class="sigma_author-block">
+                            <h5>{{author.name}}</h5>
+                            <span class="sigma_testimonial-category">{{author.specialist}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Data -->
+        </div>
+    </div>
+</div>

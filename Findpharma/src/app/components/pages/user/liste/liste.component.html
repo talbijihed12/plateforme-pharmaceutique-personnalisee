@@ -1,0 +1,94 @@
+<app-header-two></app-header-two>
+<app-breadcrumbs></app-breadcrumbs>
+
+<div class="section section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="listing-top-heading mb-xl-20">
+                    <h6 class="no-margin text-custom-black">Showing {{users.length}} Results of menus </h6>
+                    <h6>liste of users</h6>
+                    <div class="search">
+                        <input type="search" class="form-control" [(ngModel)]="searchText" placeholder="Search text">
+                    </div>
+                </div>
+            </div>
+            <!-- User Data -->
+            <div class="col-lg-3 col-md-6" *ngFor="let user of users | pipe: searchText| paginate: { itemsPerPage: 8, currentPage: page }">
+                <div class="sigma_product style-8">
+                    <div class="sigma_product-thumb">
+                        <a routerLink="/details/{{user.id}}">
+                            <img [src]="'../assets/img/585e4bcdcb11b227491c3396.png'" [alt]="user.username">
+                        </a>
+                    </div>
+                    <div class="sigma_product-controls">
+                        <!-- Update User -->
+                        <a href="javascript:void(0)" routerLink="/update-by-admin/{{user.id}}" placement="top" ngbTooltip="Update">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <!-- Delete User -->
+                        <a href="javascript:void(0)" (click)="onDelete(user.id)" placement="top" ngbTooltip="Delete">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        <a href="javascript:void(0)" routerLink="/details/{{user.id}}" placement="top" ngbTooltip="Details">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a href="javascript:void(0)" (click)="openEditRoleModal(user.id, user.role)" placement="top" ngbTooltip="Edit Role">
+                            <i class="fas fa-user-cog"></i>
+                          </a>
+                        
+                        
+                    </div>
+                    <div class="sigma_product-body">
+                        <h5 class="sigma_product-title">
+                            <a routerLink="/details/{{user.id}}">{{user.username}}</a>
+                        </h5>
+                        <!-- Display user information here -->
+                    </div>
+                </div>
+            </div>
+            <!-- User Data -->
+            <!-- Pagination -->
+            <div class="text-center w-100">
+                <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- User Modal -->
+<ng-template #usermodal let-modal>
+    <div class="modal-body sigma_modal-sec">
+        <div class="sigma_close" (click)="modal.dismiss('Cross click')">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="form-group">
+                    
+                    <form (ngSubmit)="assignRole(selectedUserId,selectedRole)">
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" id="role" [(ngModel)]="selectedRole" name="role">
+                                <!-- Options for available roles -->
+                                <option value="Admin">Admin</option>
+                                <option value="Employee">Employee</option>
+                                <option value="Infirmier">Infirmier</option>
+                                <option value="Medecin">Medecin</option>
+                                <option value="Patient">Patient</option>
+                                <option value="Pharmacien">Pharmacien</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Role</button>
+                    </form>
+                    
+                    <!-- Additional user information or metadata here -->
+                    <!-- ... -->
+                    <!-- Social sharing options if needed -->
+                    <!-- ... -->
+                </div>
+    </div>
+</ng-template>
+
+
+<app-footer></app-footer>

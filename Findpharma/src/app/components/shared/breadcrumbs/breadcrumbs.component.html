@@ -1,0 +1,20 @@
+<breadcrumb #parent>
+    <div class="sigma_subheader style-5 bg-gray">
+        <div class="container">
+            <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                <div class="sigma_subheader-inner">
+                    <h1>{{ route.displayName }}</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a routerLink="/" class="btn-link">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ route.displayName }}</li>
+                </ol>
+            </ng-template>
+        </div>
+        <img src="assets/img/subheader-br.png" class="br" alt="subheader">
+        <img src="assets/img/subheader-bl.png" class="bl" alt="subheader">
+        <img src="assets/img/subheader-tr.png" class="tr" alt="subheader">
+    </div>
+</breadcrumb>

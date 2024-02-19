@@ -1,0 +1,75 @@
+<div class="sidebar-style-9">
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <app-clinic-sidebar></app-clinic-sidebar>
+                </div>
+                <div class="col-lg-8">
+                    <!-- Data -->
+                    <div class="sigma_team style-17" *ngFor="let item of clinicblock | paginate: { itemsPerPage: 3, currentPage: page }">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <div class="sigma_team-thumb">
+                                    <img [src]="item.image" [alt]="item.name">
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6">
+                                <div class="sigma_team-body">
+                                    <h5>
+                                        <a routerLink="/clinic-details/{{item.id}}">{{item.name}}</a>
+                                    </h5>
+                                    <div class="sigma_team-categories">
+                                        <a routerLink="/clinic-details/{{item.id}}"
+                                            class="sigma_team-category">{{item.specialist}}</a>
+                                    </div>
+                                    <p>{{item.qualification}}</p>
+                                    <div class="d-flex align-items-center mt-4">
+                                        <a routerLink="/clinic-details/{{item.id}}" class="sigma_btn">View More</a>
+                                        <div class="sigma_team-controls ml-3">
+                                            <a href="javascript:void(0)" [ngClass]="item.favorite ? 'active':''"
+                                            (click)="favoriteTrigger(item)">
+                                            <i class="fal fa-heart"></i>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sigma_team-footer">
+                                    <div class="sigma_team-info">
+                                        <span>
+                                            <i class="fal fa-map-marker-alt"></i>
+                                            {{item.location}}
+                                        </span>
+                                        <span>
+                                            <i class="fal fa-award"></i>
+                                            {{item.experience}} Yrs Experience
+                                        </span>
+                                        <span>
+                                            <i class="fal fa-calendar"></i>
+                                            <b *ngFor="let data of item.available">{{data}}, </b>
+                                        </span>
+                                    </div>
+                                    <div class="sigma_rating">
+                                        <ngb-rating [max]="5" [(rate)]="item.rating" [readonly]="true">
+                                            <ng-template let-fill="fill" let-index="index">
+                                                <i class="far fa-star" [class.fas]="fill === 100"></i>
+                                            </ng-template>
+                                        </ngb-rating>
+                                        <span class="ml-3">({{item.reviews.length}})</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Data -->
+                    <!-- Pagination -->
+                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    </pagination-controls>
+                    <!-- Pagination -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

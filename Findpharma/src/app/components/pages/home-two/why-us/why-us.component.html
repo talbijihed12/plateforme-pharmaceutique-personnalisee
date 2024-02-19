@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-5 order-2 order-lg-1">
+        <div class="sigma_about style-21">
+            <div class="section-title">
+                <h3 class="title text-white">Why Choose Find-Pharma Clinic?</h3>
+            </div>
+            <div class="sigma_about-content">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. It is a long established fact that a reader will be Lorem ipsum dolor sit amet consectetur.</p>
+                <!-- Data -->
+                <div class="sigma_info style-15" *ngFor="let item of whyus | slice:0:2">
+                    <div class="sigma_info-title">
+                        <i class="sigma_info-icon" [ngClass]="item.icon"></i>
+                    </div>
+                    <div class="sigma_info-description">
+                        <h5>{{item.title}}</h5>
+                        <p>{{item.text}}</p>
+                    </div>
+                </div>
+                <!-- Data -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 offset-lg-1 order-1 order-lg-2">
+        <div class="sigma_about style-21 mt-0 w-100 h-100">
+            <div class="sigma_about-image-1">
+                <img src="assets/img/home-1/400x280.jpg" alt="img">
+            </div>
+            <div class="sigma_about-image-2 d-none d-sm-block">
+                <img src="assets/img/home-1/370x250.jpg" alt="img">
+            </div>
+        </div>
+    </div>
+</div>

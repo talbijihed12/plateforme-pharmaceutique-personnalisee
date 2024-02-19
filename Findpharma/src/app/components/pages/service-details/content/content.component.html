@@ -1,0 +1,47 @@
+<div class="sidebar-style-9 service-details">
+    <div class="section sigma_post-details" *ngFor="let item of servicedetails">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="sigma_post-details-inner mb-md-80">
+                        <div class="entry-content">
+                            <img [src]="item.image" [alt]="item.title" class="w-100">
+                            <div class="row">
+                                <!-- Data -->
+                                <div class="col-md-4" *ngFor="let image of item.gallery">
+                                    <a href="{{image}}" class="gallery-thumb">
+                                        <img [src]="image" [alt]="item.title">
+                                    </a>
+                                </div>
+                                <!-- Data -->
+                            </div>
+                            <h2 class="entry-title">{{item.title}}</h2>
+                            <div [innerHtml]="item.htmltext"></div>
+                        </div>
+                        <!-- Post Meta Start -->
+                        <div class="sigma_post-details-meta">
+                            <div class="sigma_post-details-meta-item sigma_post-share">
+                                <h5>Share</h5>
+                                <ul class="sigma_sm">
+                                    <!-- Data -->
+                                    <li *ngFor="let social of socialShare(item.title)">
+                                        <a href="javascript:void(0)" (click)="openSocialPopup(social)">
+                                            <i [class]="social.iconClass"></i>
+                                        </a>
+                                    </li>
+                                    <!-- Data -->
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Post Meta End -->
+                    </div>
+                </div>
+                <!-- Sidebar Start -->
+                <div class="col-lg-4">
+                    <app-service-sidebar></app-service-sidebar>
+                </div>
+                <!-- Sidebar End -->
+            </div>
+        </div>
+    </div>
+</div>

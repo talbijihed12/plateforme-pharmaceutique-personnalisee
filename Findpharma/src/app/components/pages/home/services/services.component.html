@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="sigma_service-wrapper style-18 margin-negative">
+        <div class="section-title flex-title">
+            <h3 class="title mb-0">Praesent tempor dictum tellus ut molestie</h3>
+            <a routerLink="/contact" class="sigma_btn mt-3 mt-sm-0">
+                Get a Quote
+                <i class="fal fa-arrow-right ml-3"></i>
+            </a>
+        </div>
+        <div class="row">
+            <!-- Data -->
+            <div class="col-lg-4 col-md-6" *ngFor="let item of getRecentService()">
+                <div class="sigma_service style-18">
+                    <div class="sigma_service-thumb">
+                        <i [class]="item.icon"></i>
+                    </div>
+                    <div class="sigma_service-body">
+                        <h5>
+                            <a routerLink="/service-details/{{item.id}}">{{item.title}}</a>
+                        </h5>
+                        <p>{{item.shorttext | slice:0:70}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Data -->
+        </div>
+    </div>
+</div>

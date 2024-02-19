@@ -1,0 +1,82 @@
+<div class="section section-padding sigma_product-single">
+    <div class="container">
+        <!-- Wishlist Table Start -->
+        <table class="sigma_responsive-table">
+            <thead>
+                <tr>
+                    <th class="remove-item"></th>
+                    <th>Product</th>
+                    <th>Availability</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data -->
+                <tr *ngFor="let item of wishlistItems">
+                    <td class="remove">
+                        <button type="button" class="sigma_close close-danger remove-from-cart"
+                            (click)="handleDeleteFromWishlist(item)">
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </td>
+                    <td data-title="Product">
+                        <div class="sigma_cart-product-wrapper">
+                            <img [src]="item.image[0]" [alt]="item.title">
+                            <div class="sigma_cart-product-body">
+                                <h6> <a routerLink="/product-single/{{item.id}}">{{item.title}}</a> </h6>
+                                <p>{{item.rating}} Rating</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-title="Availability">
+                        <span class="sigma_product-stock instock" *ngIf="item.stock">In Stock</span>
+                        <span class="sigma_product-stock outofstock" *ngIf="!item.stock">Out of Stock</span>
+                    </td>
+                    <td data-title="Total"> <strong>{{item.price * (100 - item.discount) / 100 |
+                            number:'1.2-2'}}$</strong> </td>
+                    <td data-title="Actions">
+                        <button type="button" class="sigma_btn btn-sm shadow-none" *ngIf="item.stock"
+                            (click)="productAddtoCart(item)">Add to Cart</button>
+                        <button type="button" class="sigma_btn btn-sm shadow-none" *ngIf="!item.stock" disabled>Add to
+                            Cart</button>
+                    </td>
+                </tr>
+                <!-- Data -->
+            </tbody>
+        </table>
+        <!-- Wishlist Table End -->
+        <!-- Share Wishlist Start -->
+        <div class="text-center">
+            <h5>Share Your Wishlist</h5>
+            <!-- Post Share Start -->
+            <div class="sigma_post-share">
+                <ul class="sigma_sm justify-content-center">
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Post Share End -->
+        </div>
+        <!-- Share Wishlist End -->
+    </div>
+</div>

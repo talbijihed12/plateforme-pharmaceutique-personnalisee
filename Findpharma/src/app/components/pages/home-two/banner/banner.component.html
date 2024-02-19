@@ -1,0 +1,28 @@
+<div class="sigma_banner style-8">
+    <ngx-slick-carousel [config]="settings" class="sigma_banner-slider">
+        <!-- Data -->
+        <div ngxSlickItem class="banner-slider-inner bg-center bg-cover secondary-overlay" [style.background-image]="'url('+item.image+')'" *ngFor="let item of banner">
+            <div class="sigma_banner-text text-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h5 class="text-white">{{item.subtitle}}</h5>
+                            <h1 class="title text-white" [innerHtml]="item.title"></h1>
+                            <div class="banner-links d-flex align-items-center justify-content-center">
+                                <a routerLink="/shop-grid" class="sigma_btn">
+                                    Order Here
+                                    <i class="fal fa-plus ml-3 d-none d-sm-inline-block"></i>
+                                </a>
+                                <a routerLink="/about" class="sigma_btn light ml-4">
+                                    Read More
+                                    <i class="fal fa-plus ml-3 d-none d-sm-inline-block"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Data -->
+    </ngx-slick-carousel>
+</div>

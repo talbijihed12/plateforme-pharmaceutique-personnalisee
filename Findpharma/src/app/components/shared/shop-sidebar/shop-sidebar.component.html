@@ -1,0 +1,73 @@
+<div class="sidebar-style-8">
+    <div class="sidebar">
+        <!-- Search Widget -->
+        <div class="widget widget-search">
+            <form (ngSubmit)="onSubmit()" method="GET">
+                <div class="input-group">
+                    <input type="text" name="search" placeholder="Search" name="searchText" [(ngModel)]="searchText"
+                        required>
+                    <div class="input-group-append">
+                        <button type="submit">
+                            <i class="fal fa-search mr-0"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Filter: Price Start -->
+        <div class="widget">
+            <h5 class="widget-title"> Price </h5>
+            <ngx-slider [(value)]="priceFilter[0]" [(highValue)]="priceFilter[1]" [options]="priceFilterOptions"
+                [(ngModel)]="priceFilter" (click)="handlePriceChange()">
+            </ngx-slider>
+        </div>
+        <!-- Filter: Price End -->
+        <!-- Category Widget -->
+        <div class="widget widget-categories">
+            <h5 class="widget-title">Categories</h5>
+            <ul>
+                <!-- Data -->
+                <li *ngFor="let item of category">
+                    <a routerLink="/shop/cat/{{item.id}}">
+                        {{item.title}}<span>{{item.count}}</span>
+                    </a>
+                </li>
+                <!-- Data -->
+            </ul>
+        </div>
+        <!-- Recent Posts Widget -->
+        <div class="widget widget-sigma-recent-posts">
+            <h5 class="widget-title">Recent Product</h5>
+            <!-- Data -->
+            <div class="sigma_recent-post" *ngFor="let item of getRecentProduct()">
+                <a routerLink="/product-single/{{item.id}}" class="recent-post-image"><img [src]="item.image[0]"
+                        [alt]="item.title"><span>{{item.reviews.length}}</span></a>
+                <div class="recent-post-descr">
+                    <h6>
+                        <a routerLink="/product-single/{{item.id}}">{{item.title}}</a>
+                    </h6>
+                    <a routerLink="/product-single/{{item.id}}" class="date">
+                        <i class="far fa-clock mr-2"></i>
+                        {{item.postdate}}
+                    </a>
+                </div>
+            </div>
+            <!-- Data -->
+        </div>
+        <!-- Subscribe Widget -->
+        <div class="widget widget-newsletter">
+            <h5 class="widget-title">Join Newsletter</h5>
+            <form method="post">
+                <input type="email" name="email" placeholder="Enter your email">
+                <button type="button" class="btn-block mt-4">Subscribe</button>
+            </form>
+        </div>
+        <!-- Tags Widget -->
+        <div class="widget tagcloud">
+            <h5 class="widget-title">Popular Tags</h5>
+            <!-- Data -->
+            <a routerLink="/shop/tag/{{item.id}}" *ngFor="let item of tags">{{item.title}}</a>
+            <!-- Data -->
+        </div>
+    </div>
+</div>

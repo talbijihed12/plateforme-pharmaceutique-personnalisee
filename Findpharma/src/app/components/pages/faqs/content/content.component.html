@@ -1,0 +1,39 @@
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="sigma_accordion style-13">
+                    <div class="sigma_tab-item style-4">
+                        <ul ngbNav #nav="ngbNav" class="nav nav-tabs" id="myTab" role="tablist">
+                            <!-- Data -->
+                            <li [ngbNavItem]="1+i" *ngFor="let faq of faqs;let i = index">
+                                <a ngbNavLink>
+                                    {{faq.title}}
+                                    <i class="fal fa-chevron-right"></i>
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div class="sigma_accordion style-13">
+                                        <ngb-accordion [closeOthers]="true" activeIds="static-1-{{faq.id}}">
+                                            <ngb-panel id="static-{{1+i}}-{{faq.id}}" *ngFor="let item of faq.items;let i = index">
+                                                <ng-template ngbPanelTitle>
+                                                    {{item.title}}
+                                                </ng-template>
+                                                <ng-template ngbPanelContent>
+                                                    {{item.text}}
+                                                </ng-template>
+                                            </ngb-panel>
+                                        </ngb-accordion>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <!-- Data -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div [ngbNavOutlet]="nav" class="mt-5 mt-lg-0"></div>
+            </div>
+        </div>
+    </div>
+</div>

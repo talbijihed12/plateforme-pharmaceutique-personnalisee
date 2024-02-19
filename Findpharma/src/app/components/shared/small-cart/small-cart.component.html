@@ -1,0 +1,15 @@
+<li *ngFor="let item of cartItems">
+    <div class="sigma_cart-product-wrapper">
+        <div class="d-flex">
+            <img [src]="item.image[0]" [alt]="item.title">
+            <div class="sigma_cart-product-body">
+                <h6> <a routerLink="/product-single/{{item.id}}">{{item.title}}</a> </h6>
+                <p>{{getItemQuantity(item)}} Pieces</p>
+            </div>
+        </div>
+        <button type="button" class="sigma_close remove-from-cart" (click)="handleDeleteFromCart(item)">
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</li>

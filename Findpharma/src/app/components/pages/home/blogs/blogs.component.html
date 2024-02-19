@@ -1,0 +1,55 @@
+<div class="section section-padding pt-0">
+    <div class="container">
+        <div class="section-title centered">
+            <span class="subtitle">Latest News</span>
+            <h3 class="title">Our Insights & Articles</h3>
+        </div>
+        <div class="row">
+            <!-- Data -->
+            <div class="col-lg-4 col-md-6" *ngFor="let item of getRecentPost()">
+                <article class="sigma_post style-15">
+                    <div class="sigma_post-thumb">
+                        <a routerLink="/blog-details/{{item.id}}">
+                            <img [src]="item.image[0]" [alt]="item.title">
+                        </a>
+                    </div>
+                    <div class="sigma_post-body">
+                        <div class="sigma_post-content">
+                            <div class="sigma_post-meta is-absolute">
+                                <a routerLink="/blog-details/{{item.id}}" class="sigma_post-date">
+                                    {{item.postdate}}
+                                </a>
+                            </div>
+                            <div class="sigma_post-meta">
+                                <ul>
+                                    <!-- Data -->
+                                    <li *ngFor="let author of getAuthor(item.author)">
+                                        <a routerLink="/blog/author/{{author.id}}">
+                                            <i class="fal fa-user"></i>
+                                            By {{author.name}}
+                                        </a>
+                                    </li>
+                                    <!-- Data -->
+                                    <li *ngFor="let cat of getCategories(item.category) | slice:0:1">
+                                        <a routerLink="/blog/cat/{{cat.id}}">
+                                            <i class="fal fa-folder-open"></i>
+                                            {{cat.title}}
+                                        </a>
+                                    </li>
+                                    <!-- Data -->
+                                </ul>
+                            </div>
+                            <h5>
+                                <a routerLink="/blog-details/{{item.id}}">{{item.title}}</a>
+                            </h5>
+                        </div>
+                        <a routerLink="/blog-details/{{item.id}}" class="btn-link">
+                            Read more
+                        </a>
+                    </div>
+                </article>
+            </div>
+            <!-- Data -->
+        </div>
+    </div>
+</div>

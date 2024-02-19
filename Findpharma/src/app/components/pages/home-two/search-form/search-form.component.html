@@ -1,0 +1,28 @@
+<div class="sigma_banner-info style-2">
+    <div class="container">
+        <div class="sigma_cta style-13">
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+                <div class="row no-gutters">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Search Topic</label>
+                            <input type="text" class="topic-field" placeholder="Search doctors, clinic, Hospitals etc." formControlName="topic" required>
+                        </div>
+                    </div> 
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <div class="input-group">
+                                <i class="fal fa-map-marker-alt d-none d-sm-block"></i>
+                                <input type="text" class="location-field" placeholder="Location" formControlName="location" required>
+                                <div class="input-group-append">
+                                    <button type="submit" [disabled]="!searchForm.valid"> <i class="fal fa-search mr-1"></i> Find Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="sigma_clients-wrapper style-3">
+    <div class="row">
+        <!-- Data -->
+        <div class="col-lg-6 col-md-6" *ngFor="let item of clients | slice:0:4">
+            <div class="sigma_clients style-3">
+                <img [src]="item.image" alt="clients">
+            </div>
+        </div>
+        <!-- Data -->
+    </div>
+</div>

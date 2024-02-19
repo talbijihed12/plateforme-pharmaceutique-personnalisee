@@ -1,0 +1,85 @@
+<div class="sidebar-style-8">
+  <div class="section pb-0 sigma_post-details style-6" *ngFor="let post of posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="sigma_post-details-inner">
+            <div class="entry-content">
+              <a class="gallery-thumb w-100">
+                <img [alt]="post.postName" class="w-100">
+              </a>
+              <div class="sigma_post-details-meta">
+                <a routerLink="/blog/author/{{post.createdBy}}">
+                  <i class="fal fa-user"></i> By {{post.createdBy}}
+                </a>
+              </div>
+              <h2 class="entry-title">{{post.postName}}</h2>
+              <a routerLink="/blog/cat/{{post.topic}}">
+                <i class="fal fa-folder-open"></i> {{post.topic}}
+              </a><br>
+              <a routerLink="/blog-details/{{post.id}}">
+                <i class="fal fa-hashtag"></i> {{post.hashTag}}
+              </a>
+              <div [innerHtml]="post.description"></div>
+              
+              <a>
+                <i class="fal fa-calendar"></i> {{post.duration}}
+              </a><br>
+              <a>
+                <i class="fal fa-comments"></i> Comments {{post.commentCount}}
+              </a>
+            </div>
+            <hr>
+            <!-- Post Meta Start -->
+            <div class="sigma_post-details-meta">
+              <div class="sigma_post-details-meta-item sigma_post-share">
+                <h5 class="mb-0">Share:</h5>
+                <ul class="sigma_sm ml-4">
+                  <!-- Loop through social shares -->
+                  <li *ngFor="let social of socialShare(post.postName)">
+                    <a href="javascript:void(0)" (click)="openSocialPopup(social)">
+                      <i [class]="social.iconClass"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Post Meta End -->
+            <!-- Comments Start -->
+            <div class="section pb-0">
+              <h3>Comments</h3>
+              <div class="comments-list">
+                <ul>
+                  <!-- Loop through comments for the current post -->
+                  <li class="comment-item" *ngFor="let comment of post.comments">
+                    <div class="comment-body">
+                      <h5>By {{comment.createdBy}}</h5>
+                      <span class="date">{{comment.duration}}</span>
+                      <p>{{comment.text}}</p>
+                      <p><i class="fal fa-calendar"></i>{{comment.createdDate}}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Comments End -->
+            
+            <div class="post-comment">
+              <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+                <div class="form-group">
+                  <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
+                </div>
+                <button type="submit" class="login float-right">Comment</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Sidebar Start -->
+        <div class="col-lg-4">
+          <app-blog-sidebar></app-blog-sidebar>
+        </div>
+        <!-- Sidebar End -->
+      </div>
+    </div>
+  </div>
+</div>

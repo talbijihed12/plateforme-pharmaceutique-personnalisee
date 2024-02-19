@@ -1,0 +1,60 @@
+<div class="sidebar-style-9">
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <app-clinic-sidebar></app-clinic-sidebar>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <!-- Data -->
+                        <div class="col-lg-6 col-md-6"
+                            *ngFor="let item of clinicblock | paginate: { itemsPerPage: 4, currentPage: page }">
+                            <div class="sigma_team style-16">
+                                <div class="sigma_team-thumb">
+                                    <img [src]="item.image" [alt]="item.name">
+                                    <div class="sigma_team-controls">
+                                        <a href="javascript:void(0)" [ngClass]="item.favorite ? 'active':''"
+                                            (click)="favoriteTrigger(item)">
+                                            <i class="fal fa-heart"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sigma_team-body">
+                                    <h5>
+                                        <a routerLink="/clinic-details/{{item.id}}">{{item.name}}</a>
+                                    </h5>
+                                    <div class="sigma_rating">
+                                        <ngb-rating [max]="5" [(rate)]="item.rating" [readonly]="true">
+                                            <ng-template let-fill="fill" let-index="index">
+                                                <i class="far fa-star" [class.fas]="fill === 100"></i>
+                                            </ng-template>
+                                        </ngb-rating>
+                                        <span class="ml-3">({{item.reviews.length}})</span>
+                                    </div>
+                                    <div class="sigma_team-categories">
+                                        <a routerLink="/clinic-details/{{item.id}}"
+                                            class="sigma_team-category">{{item.specialist}}</a>
+                                    </div>
+                                    <div class="sigma_team-info">
+                                        <span>
+                                            <i class="fal fa-map-marker-alt"></i>
+                                            {{item.location}}
+                                        </span>
+                                    </div>
+                                    <a routerLink="/clinic-details/{{item.id}}" class="sigma_btn btn-block btn-sm">View
+                                        More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data -->
+                    </div>
+                    <!-- Pagination -->
+                    <pagination-controls (pageChange)="page = $event" responsive="true" previousLabel="<" nextLabel=">">
+                    </pagination-controls>
+                    <!-- Pagination -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<app-header-two></app-header-two>
+<app-breadcrumbs></app-breadcrumbs>
+
+<div class="col-12">
+  <div class="listing-top-heading mb-xl-20">
+      <h6 class="no-margin text-custom-black">Showing {{user?.username}} Results</h6>
+      <h6>Detail of user</h6>
+      
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row" *ngIf="user">
+    <div class="col-md-4 mx-auto">
+      <form (ngSubmit)="onUpdate()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="emailId">email:</label>
+          <input type="text" class="form-control" name="emailId" id="emailId"
+          [(ngModel)]="user.email" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="passwordd">password:</label>
+          <input type="text" class="form-control" name="passwordd" id="passwordd"
+          [(ngModel)]="user.password" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="firstname">firstname:</label>
+          <input type="text" class="form-control" name="firstname" id="firstname"
+          [(ngModel)]="user.firstName" required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">lastName:</label>
+          <input type="text" class="form-control" name="lastName" id="lastName"
+          [(ngModel)]="user.lastName" required autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-outline-success btn-block" [disabled]="!f.valid">
+          <i class="far fa-edit">Update</i>
+        </button>
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="back()"><i class="far fa-arrow-alt-circle-left"></i>back</button>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
